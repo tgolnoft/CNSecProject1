@@ -15,7 +15,7 @@ public class Sender {
     byte[] symkey = Readers.readSymKeyFromFile(Readers.SYM_KEY_FILE_NAME);
     System.out.print("Input the name of the message file: ");
     String fname = scan.nextLine();
-    md(fname);
+    String messageDigest = md(fname);
   }
 
 
@@ -33,7 +33,7 @@ public class Sender {
 
     byte[] hash = md.digest();
 
-    System.out.println("digit digest (hash value):");
+    System.out.println("SHA256(M):");
     for (int k=0, j=0; k<hash.length; k++, j++) {
       System.out.format("%2X ", new Byte(hash[k])) ;
       if (j >= 15) {
