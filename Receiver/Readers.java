@@ -13,6 +13,8 @@ public class Readers{
   private static final String Y_PUB_FILE_NAME = "YPublic.key";
   private static final String Y_PRIV_FILE_NAME = "YPrivate.key";
   private static final String SYM_KEY_FILE_NAME = "symmetric.key";
+
+  
   public static void main (String[] args)throws Exception {
     PublicKey pubKeyX = readPubKeyFromFile(X_PUB_FILE_NAME);
     PrivateKey privKeyX = readPrivKeyFromFile(X_PRIV_FILE_NAME);
