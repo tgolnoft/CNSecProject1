@@ -4,7 +4,7 @@ import java.security.spec.*;
 import java.io.*;
 import java.math.BigInteger;
 import java.nio.file.Files;
-import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Sender {
   static int BUFFER_SIZE = 32*1024;
@@ -16,8 +16,13 @@ public class Sender {
     System.out.print("Input the name of the message file: ");
     String fname = scan.nextLine();
     String messageDigest = md(fname);
+    saveStringToFile(messageDigest, "message.dd");
+
   }
 
+  public static void saveStringToFile(String s, String fname) throws Exception{
+    Files.write(Paths.get(fname), s.getBytes());
+  }
 
  public static String md(String f) throws Exception {
     BufferedInputStream file = new BufferedInputStream(new FileInputStream(f));
