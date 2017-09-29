@@ -62,8 +62,11 @@ public class KeyGen{
         privKSpec.getPrivateExponent());
 
     Scanner scan = new Scanner(System.in);
-    System.out.print("Enter the 16 character string for the symmetric key: ");
-    byte[] sym = scan.nextLine().getBytes("UTF-8");
+    byte[] sym;
+    do{
+      System.out.print("Enter the 16 character string for the symmetric key: ");
+      sym = scan.nextLine().getBytes("UTF-8");
+    } while(sym.length != 16);
     Files.write(Paths.get(SYMMETRIC_KEY_FILE), sym);
   }
 
