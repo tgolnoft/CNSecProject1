@@ -37,8 +37,30 @@ public class Sender {
 
     Files.write(Paths.get("message.add-msg"), aesEncry);
     Files.write(Paths.get("message.add-msg"), Files.readAllBytes(Paths.get(fname)), StandardOpenOption.APPEND );
+    RSAEncrypt(pubKeyY);
   }
+  public static void RSAEncrypt(PublicKey pubKeyY)throws Exception{
+    byte[] file = Files.readAllBytes(Paths.get("message.add-msg"));
+    SecureRandom random = new SecureRandom();
+    Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+    cipher.init(Cipher.ENCRYPT_MODE, pubKeyY, random);
+    try{
+      Files.delete(Paths.get("message.rsacipher"));
+    }catch (Exception x){
+      //files doesn't exist
+    }
+    try{
+      Files.createFile(Paths.get("message.rsacipher"));
+    }catch(Exception x){
 
+    }
+    for(int x = 0; x < file.length; x+=117){
+      int last = (x+117>=file.length)? file.length: x+117;
+      byte [] cp = Arrays.copyOfRange(file, x, last);
+      byte [] ciphertext = cipher.doFinal(cp);
+      Files.write(Paths.get("message.rsacipher"), ciphertext, StandardOpenOption.APPEND);
+    }
+  }
   public static void saveStringToFile(String s, String fname) throws Exception{
     Files.write(Paths.get(fname), s.getBytes());
   }
