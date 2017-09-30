@@ -8,11 +8,11 @@ import java.nio.file.Paths;
 
 
 public class Readers{
-  private static final String X_PUB_FILE_NAME = "XPublic.key";
-  private static final String X_PRIV_FILE_NAME = "XPrivate.key";
-  private static final String Y_PUB_FILE_NAME = "YPublic.key";
-  private static final String Y_PRIV_FILE_NAME = "YPrivate.key";
-  private static final String SYM_KEY_FILE_NAME = "symmetric.key";
+  public static final String X_PUB_FILE_NAME = "XPublic.key";
+  public static final String X_PRIV_FILE_NAME = "XPrivate.key";
+  public static final String Y_PUB_FILE_NAME = "YPublic.key";
+  public static final String Y_PRIV_FILE_NAME = "YPrivate.key";
+  public static final String SYM_KEY_FILE_NAME = "symmetric.key";
 
   
   public static void main (String[] args)throws Exception {
@@ -37,8 +37,6 @@ public class Readers{
       BigInteger m = (BigInteger) oin.readObject();
       BigInteger e = (BigInteger) oin.readObject();
 
-      System.out.println("Readers from " + keyFileName + "\nmodulus = " + 
-          m.toString() + "\nexponent = " + e.toString() + "\n");
 
       RSAPublicKeySpec keySpec = new RSAPublicKeySpec(m, e);
       KeyFactory factory = KeyFactory.getInstance("RSA");
@@ -53,7 +51,7 @@ public class Readers{
   }
 
 
-  //read key parameters from a file and generate the private key 
+  //read key parameters from a file and generate the public key 
   public static PrivateKey readPrivKeyFromFile(String keyFileName) 
       throws IOException {
 
@@ -66,8 +64,6 @@ public class Readers{
       BigInteger m = (BigInteger) oin.readObject();
       BigInteger e = (BigInteger) oin.readObject();
 
-      System.out.println("Read from " + keyFileName + "\nmodulus = " + 
-          m.toString() + "\nexponent = " + e.toString() + "\n");
 
       RSAPrivateKeySpec keySpec = new RSAPrivateKeySpec(m, e);
       KeyFactory factory = KeyFactory.getInstance("RSA");

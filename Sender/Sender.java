@@ -44,6 +44,8 @@ public class Sender {
     SecureRandom random = new SecureRandom();
     Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1Padding");
     cipher.init(Cipher.ENCRYPT_MODE, pubKeyY, random);
+
+
     try{
       Files.delete(Paths.get("message.rsacipher"));
     }catch (Exception x){
@@ -54,6 +56,7 @@ public class Sender {
     }catch(Exception x){
 
     }
+
     for(int x = 0; x < file.length; x+=117){
       int last = (x+117>=file.length)? file.length: x+117;
       byte [] cp = Arrays.copyOfRange(file, x, last);
@@ -61,6 +64,7 @@ public class Sender {
       Files.write(Paths.get("message.rsacipher"), ciphertext, StandardOpenOption.APPEND);
     }
   }
+
   public static void saveStringToFile(String s, String fname) throws Exception{
     Files.write(Paths.get(fname), s.getBytes());
   }
@@ -92,7 +96,7 @@ public class Sender {
   }
   public static byte[] AESencrypt(byte [] plaintext, byte[] symkey) throws Exception {
 
-    Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding", "SunJCE");
+    Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding", "SunJCE");
     //Cipher cipher = Cipher.getInstance("AES/CFB8/NoPadding", "SunJCE");
     //Cipher cipher = Cipher.getInstance("AES/CFB/NoPadding", "SunJCE");
     SecretKeySpec key = new SecretKeySpec(symkey, "AES");
